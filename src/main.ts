@@ -1,0 +1,15 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { Logger, ValidationPipe } from '@nestjs/common';
+
+async function main() {
+	const app = await NestFactory.create(AppModule);
+
+	app.useGlobalPipes(new ValidationPipe());
+
+	await app.listen(process.env.PORT ?? 5000, () => {
+		app.get(Logger).log(`Application listening on ${app.getUrl()}`)
+	});
+}
+
+main();

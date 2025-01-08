@@ -1,0 +1,10 @@
+version: '3.9'
+
+name: nestjs-template
+
+services:
+  hello-world:
+    container_name: hello-world
+    image: hello-world
+    ports:
+      - '80:80'
