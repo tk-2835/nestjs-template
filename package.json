@@ -10,9 +10,9 @@
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",
 		"test": "vitest --coverage",
-		"test:ui": "vitest --ui --coverage",
 		"infrastructure:up": "docker compose -f scripts/infrastructure.yaml up -d",
-		"infrastructure:down": "docker compose -f scripts/infrastructure.yaml down"
+		"infrastructure:down": "docker compose -f scripts/infrastructure.yaml down",
+		"test:create": "ts-node scripts/create-integration-tests.ts"
 	},
 	"dependencies": {
 		"@nestjs/common": "10.4.15",
@@ -42,6 +42,7 @@
 		"tsconfig-paths": "4.2.0",
 		"typescript": "5.7.2",
 		"typescript-eslint": "8.19.1",
-		"vitest": "2.1.8"
+		"vitest": "2.1.8",
+		"axios": "1.7.9"
 	}
 }
