@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import swc from 'unplugin-swc';
 
 export default defineConfig({
 	test: {
@@ -8,7 +9,13 @@ export default defineConfig({
 			provider: 'v8',
 			include: ['src/**/*']
 		},
+
 		minWorkers: 1,
 		maxWorkers: 1
-	}
+	},
+	plugins: [
+		swc.vite({
+			module: { type: 'es6' }
+		})
+	]
 });
