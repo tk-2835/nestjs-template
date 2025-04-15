@@ -4,14 +4,14 @@ const AggregateSchema = z.object({
 	id: z.string().uuid()
 });
 
-export const ExampleAggregateSchema = z.union([
-	AggregateSchema.and(
+export const ExampleAggregateSchema = z.discriminatedUnion('status', [
+	AggregateSchema.merge(
 		z.object({
 			status: z.literal('DRAFT'),
 			name: z.string().nullable()
 		})
 	),
-	AggregateSchema.and(
+	AggregateSchema.merge(
 		z.object({
 			status: z.literal('RELEASED'),
 			name: z.string()

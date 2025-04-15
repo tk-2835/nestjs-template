@@ -1,5 +1,7 @@
-import DataLoader from 'dataloader';
+import { Injectable } from '@nestjs/common';
+import * as DataLoader from 'dataloader';
 
+@Injectable()
 export class ExampleDataloader extends DataLoader<string, { id: string }> {
 	constructor() {
 		super(async (keys) => {

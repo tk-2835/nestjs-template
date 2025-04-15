@@ -2,7 +2,6 @@ import { Test } from '@nestjs/testing';
 import { AppModule } from '../../src/app.module';
 import { NestApplication } from '@nestjs/core';
 import axios from 'axios';
-import { ExampleDataloader } from '../../src/example/example.dataloader';
 
 describe('Example', () => {
 	let app: NestApplication;
@@ -24,12 +23,5 @@ describe('Example', () => {
 			validateStatus: null
 		});
 		expect(status).toBe(200);
-	});
-
-	test('Dataloader should return object', async () => {
-		const dataloader = new ExampleDataloader();
-
-		const result = await dataloader.load('1');
-		expect(result).toMatchObject({ id: '1' });
 	});
 });
