@@ -4,6 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import * as z from 'zod';
 import { ExampleModule } from './example/example.module';
 import { BullModule } from '@nestjs/bullmq';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 const ConfigSchema = z.object({
 	NODE_ENV: z.enum(['production', 'test']).catch('production'),
@@ -15,6 +16,7 @@ export type Config = z.infer<typeof ConfigSchema>;
 	imports: [
 		ConfigModule.forRoot({ validate: ConfigSchema.parse }),
 		ScheduleModule.forRoot(),
+		EventEmitterModule.forRoot(),
 		BullModule.forRoot({
 			connection: { host: 'localhost', port: 6379 }
 		}),

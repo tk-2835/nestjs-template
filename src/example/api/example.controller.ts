@@ -12,7 +12,7 @@ import { zodToOpenAPI, ZodValidationPipe } from 'nestjs-zod';
 import { z } from 'zod';
 import { randomUUID } from 'crypto';
 
-export const GetDtoSchema = z.discriminatedUnion('status', [
+export const GetExampleDtoSchema = z.discriminatedUnion('status', [
 	z.object({
 		id: z.string().uuid(),
 		status: z.literal('DRAFT'),
@@ -24,24 +24,27 @@ export const GetDtoSchema = z.discriminatedUnion('status', [
 		name: z.string()
 	})
 ]);
-type GetDto = z.infer<typeof GetDtoSchema>;
+type GetExampleDto = z.infer<typeof GetExampleDtoSchema>;
 
-const PostDtoSchema = z.object({
+const PostExampleDtoSchema = z.object({
 	name: z.string()
 });
-type PostDto = z.infer<typeof PostDtoSchema>;
+type PostExampleDto = z.infer<typeof PostExampleDtoSchema>;
 
 @Controller('examples')
 export class ExampleController {
 	@Get('/:id')
-	@ApiResponse({ status: 200, schema: zodToOpenAPI(GetDtoSchema) })
-	getExample(@Param('id', ParseUUIDPipe) id: string): GetDto {
+	@ApiResponse({ status: 200, schema: zodToOpenAPI(GetExampleDtoSchema) })
+	getExample(@Param('id', ParseUUIDPipe) id: string): GetExampleDto {
 		return { id: id, status: 'DRAFT', name: 'example' };
 	}
 
 	@Get()
-	@ApiResponse({ status: 200, schema: zodToOpenAPI(GetDtoSchema.array()) })
-	getExamples(): GetDto[] {
+	@ApiResponse({
+		status: 200,
+		schema: zodToOpenAPI(GetExampleDtoSchema.array())
+	})
+	getExamples(): GetExampleDto[] {
 		return [
 			{ id: randomUUID(), status: 'DRAFT', name: 'example' },
 			{ id: randomUUID(), status: 'DRAFT', name: 'example' },
@@ -50,10 +53,10 @@ export class ExampleController {
 	}
 
 	@Post()
-	@ApiResponse({ status: 201, schema: zodToOpenAPI(GetDtoSchema) })
-	@ApiBody({ schema: zodToOpenAPI(PostDtoSchema) })
-	@UsePipes(new ZodValidationPipe(PostDtoSchema))
-	createExample(@Body() input: PostDto): GetDto {
+	@ApiResponse({ status: 201, schema: zodToOpenAPI(GetExampleDtoSchema) })
+	@ApiBody({ schema: zodToOpenAPI(PostExampleDtoSchema) })
+	@UsePipes(new ZodValidationPipe(PostExampleDtoSchema))
+	createExample(@Body() input: PostExampleDto): GetExampleDto {
 		return { id: randomUUID(), status: 'DRAFT', name: input.name };
 	}
 }

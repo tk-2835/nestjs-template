@@ -5,9 +5,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function main() {
 	const app = await NestFactory.create(AppModule);
 
-	const config = new DocumentBuilder().build();
-	const documentFactory = () => SwaggerModule.createDocument(app, config);
-	SwaggerModule.setup('swagger', app, documentFactory);
+	SwaggerModule.setup(
+		'swagger',
+		app,
+		SwaggerModule.createDocument(app, new DocumentBuilder().build())
+	);
 
 	await app.listen(process.env.PORT ?? 5000);
 }

@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ExampleController } from './api/example.controller';
 import { ExampleDataloader } from './application/example.dataloader';
 import { ExampleScheduler } from './application/example.cron';
 import { ExampleFactory } from './domain/example.factory';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
-	imports: [],
-	providers: [ExampleFactory, ExampleDataloader, ExampleScheduler],
-	controllers: [ExampleController]
+	imports: [EventEmitterModule],
+	providers: [ExampleFactory, ExampleDataloader, ExampleScheduler]
 })
 export class ExampleModule {}
