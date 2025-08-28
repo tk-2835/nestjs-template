@@ -8,7 +8,10 @@ async function main() {
 	SwaggerModule.setup(
 		'swagger',
 		app,
-		SwaggerModule.createDocument(app, new DocumentBuilder().build())
+		SwaggerModule.createDocument(app, new DocumentBuilder().build()),
+		{
+			jsonDocumentUrl: 'swagger/json'
+		}
 	);
 
 	await app.listen(process.env.PORT ?? 5000);
